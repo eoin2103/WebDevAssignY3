@@ -1,0 +1,21 @@
+.searchtable thead tr td
+{
+	border: .01em solid black;
+	font-weight: bold;
+	padding: 0.3em;
+}
+
+.searchtable tbody tr td
+{
+	border: .01em solid black;
+	
+	padding: 0.3em;
+}
+
+.navsearch
+{
+	padding: 0.9em;
+	
+	
+	
+}
