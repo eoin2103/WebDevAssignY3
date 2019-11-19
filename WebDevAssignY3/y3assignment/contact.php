@@ -2,17 +2,21 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap Example</title>
+    <title>Joe's Library</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="icon" type="x-icon/image" href="bookbicon.png">
+    <link rel="stylesheet" href="mystyle.css">
     <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500&lang=en" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <style>
         body {
             font-family: 'Google Sans', sans-serif;
         }
+
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
             margin-bottom: 0;
@@ -49,9 +53,17 @@
                 height: auto;
             }
         }
-         .logo {
+
+        .logo {
             width: 1.5em;
         }
+
+        .contactContainer {
+            
+        }
+        
+        
+
     </style>
 </head>
 
@@ -69,13 +81,13 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.php">Home</a></li>
+                    <li class="active"><a href="index.php">Home</a></li>
                     <li><a href="search.php">Search</a></li>
                     <li><a href="account.php">My Account</a></li>
                     <li><a href="contact.php">Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -95,30 +107,45 @@
     </div>
 	-->
             <div class="col-sm-12 text-left">
-                <h1>Register</h1>
-                <form action="" method="post">
+                <div class="contactContainter">
+                    <h1>Contact Us</h1>
+                    <span>* Denotes Required Fields</span>
+                    <br>
+                    <br>
+                    <form action="" method="post">
 
-                    <label>Name</label>
-                    <br>
-                    <input type="text" name="user_name" class="" value="">
-                    <br>
-                    <label>User ID</label>
-                    <br>
-                    <input type="text" name="user_id" value="">
-                    <br>
-                    <label>Password</label>
-                    <br>
-                    <input type="password" name="password" class="" value="">
-                    <br>
-                    <label>Confirm Password</label>
-                    <br>
-                    <input type="password" name="confirm_password" class="" value="">
-                    <br>
-                    <br>
-                    <input type="submit" class="" value="Submit">
-                    <br>
-                    <br>
-                </form>
+                        <label for="fname">First Name *</label>
+                        <br>
+                        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                        <br>
+                        <label for="lname">Last Name</label>
+                        <br>
+                        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                        <br>
+                        <label for="email">Email *</label>
+                        <br>
+                        <input type="email" id="email" name="email" placeholder="Your Email..">
+                        <br>
+                        <label for="subject">Subject</label>
+                        <br>
+                        <select id="subject" name="subject">
+                            <option selected="selected">Choose a subject...</option>
+                            <option value="Book Request">Book Request</option>
+                            <option value="Technical Error">Technical Error</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <br>
+                        <label for="comments">Comments *</label>
+                        <br>
+                        <textarea id="comments" name="comments" placeholder="Write Comments Here.." style="height:100px; width:200px"></textarea>
+                        <br>
+
+                        <input type="submit" value="Submit">
+                        <br>
+                        <br>
+
+                    </form>
+                </div>
             </div>
             <!--
     <div class="col-sm-2 sidenav">

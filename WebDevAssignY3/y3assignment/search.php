@@ -1,46 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="mystyle.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;} 
-    }
-  </style>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="mystyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 450px
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+
+        #sresults {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #sresults td,
+        #sresults thead {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #sresults tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #sresults tr:hover {
+            background-color: #ddd;
+        }
+
+        #sresults thead {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #555;
+            color: white;
+        }
+    </style>
 </head>
 <?php
 session_start();
@@ -60,55 +94,57 @@ function addtofave()
 }
 	
 ?>
+
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li ><a href="index.php">Home</a></li>
-        <li class="active"><a href="search.php">Search</a></li>
-        <li><a href="account.php">My Account</a></li>
-        <li><a href="contact.php">Contact</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-	  <ul class="nav navbar-nav navbar-right">
-        <li><a href="register.php"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.php">Home</a></li>
+                    <li class="active"><a href="search.php">Search</a></li>
+                    <li><a href="account.php">My Account</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="register.php"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<div class="container-fluid text-center">    
-	
-  <div class="row content">
-  <!--
+    <div class="container-fluid text-center">
+
+        <div class="row content">
+            <!--
     <div class="col-sm-2 sidenav">
       <p><a href="#">Link</a></p>
       <p><a href="#">Link</a></p>
       <p><a href="#">Link</a></p>
     </div>
 	-->
-    <div class="col-sm-10 text-left"> 
-		<h1>Search</h1>
-		<form method="post">
-			<input type="text" name="search" />
-			<input type="submit"/>
-		</form>
-		<?php
-		echo '<table class="searchtable">';
+            <div class="col-sm-10 text-left">
+                <h1>Search</h1>
+                <form method="post">
+                    <input type="text" name="search" />
+                    <input type="submit" />
+                </form>
+                <br>
+                <?php
+		echo '<table class="searchtable" id="sresults">';
 		echo '<thead>';
-		echo '<tr><td>Book Name</td><td>Author</td><td>ISBN</td><td>Year of Publication</td><td>availability</td></tr>';
+		echo '<tr><td>Book Name</td><td>Author</td><td>ISBN</td><td>Year of Publication</td><td>availability</td><td></td></tr>';
 		echo '</thead>';
 		echo '<tbody>';
 		
@@ -137,22 +173,23 @@ function addtofave()
 		echo '</tbody>';
 		echo '</table>';
 		?>
-    </div>
-	
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
-  </div>
-</div>
+            </div>
 
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
+            <div class="col-sm-2 sidenav">
+                <div class="well">
+                    <p>ADS</p>
+                </div>
+                <div class="well">
+                    <p>ADS</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid text-center">
+        <p>Footer Text</p>
+    </footer>
 
 </body>
+
 </html>
