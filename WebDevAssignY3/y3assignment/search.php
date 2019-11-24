@@ -88,7 +88,6 @@ function addtofave()
 						$stmt = $db->prepare("select profile_pic_path from users where user_id like ?");
 						$stmt->bind_param("s",$_SESSION["id"]);
 						
-						//$sessionName = ;
 						$stmt->execute();
 						
 						$stmt->bind_result($col1);
@@ -96,12 +95,7 @@ function addtofave()
 						$stmt->fetch();
 						
 						$stmt->close();
-						
-						//$nav_bar_prof_pic_query = mysqli_query($db,"select profile_pic_path from users where user_id like '".$_SESSION["id"]."'");
-						
-						
-						
-						//$nav_pic_query_row = mysqli_fetch_row($nav_bar_prof_pic_query);
+
 						
 						if($$col1 === NULL)
 						{
@@ -259,7 +253,6 @@ function addtofave()
 				{
 					echo ("<td >");
 					echo ("<button onclick='addToFaves(\"".$cols[2]."\")'>");
-					//echo ("<a href='addfave.php?ISBN=".htmlentities($row[2])."'>add to favourites</a>");
 					echo "Add to Favourites";
 					echo "</button>";
 					echo ("</td>");
@@ -310,7 +303,7 @@ function addtofave()
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="copyright">
-                        <p>© <span>2018</span> <a href="#" class="transition">Speev nd Own</a> All rights reserved.</p>
+                        <p>© <span>2019</span> <a href="contact.php" class="transition">Stephen and Eoin</a> All rights reserved.</p>
                     </div>
                 </div>
             </div>

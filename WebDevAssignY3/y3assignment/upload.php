@@ -48,8 +48,7 @@ while($unique == 0)
 {
 	if (file_exists($pic_file)) 
 	{
-		//echo "Sorry, file already exists.";
-		//$uploadValid = 0;
+
 		$pic_file = merge($pic_file,'1');
 	}
 	else
@@ -82,12 +81,8 @@ if ($uploadValid == 0) {
         echo "The file ". basename( $_FILES["uploadfile"]["name"]). " has been uploaded.";
 		//delete old picture from server and assign new as profile picture
 		
-		
-		//$old_profile_query = mysqli_query($db,"select profile_pic_path from users where user_id like '".$_SESSION["id"]."'");
-		
 		$stmt = $db->prepare("select profile_pic_path from users where user_id like ?");
 		$stmt->bind_param("s",$_SESSION["id"]);
-		//$profile_row = mysqli_fetch_row($old_profile_query);
 		$stmt->execute();
 		$stmt->bind_result($col1);
 		$stmt->fetch();
@@ -97,7 +92,6 @@ if ($uploadValid == 0) {
 			unlink(realpath($old_pic));
 		}
 		$stmt->close();
-		//$sql = "update users set profile_pic_path = '".$pic_file."' where user_id = '".$_SESSION['id']."'";
 		$stmt = $db->prepare("update users set profile_pic_path = '".$pic_file."' where user_id = '".$_SESSION['id']."'");
 		$stmt->bind_param("ss",$pic_file,$_SESSION['id']);
 		

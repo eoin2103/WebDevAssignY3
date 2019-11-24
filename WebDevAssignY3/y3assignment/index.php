@@ -166,6 +166,12 @@ error_reporting(0);
                     <p>
                         Navigating your way through the wealth of information resources the Library makes available can be a daunting task. Library staff provide support, help and training to enable you to get to grips with the literature of your subject and the Library's resources. We have staff with expertise on information resources in your subject area, who are here to support you with your studies, research, or teaching.
                     </p>
+                    <br>
+                    <hr>
+                    <h4>Come Find Us!</h4>
+                    <div class="table-responsive">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2382.3224322870833!2d-6.269866684585018!3d53.33748418307661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48670c208d669855%3A0x617d72d1cfaa1376!2sKevin%20Street%20Library!5e0!3m2!1sen!2sie!4v1574623414797!5m2!1sen!2sie" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                    </div>
                     <hr>
                 </div>
             </div>
@@ -177,7 +183,7 @@ error_reporting(0);
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="copyright">
-                        <p>© <span>2018</span> <a href="#" class="transition">Speev nd Own</a> All rights reserved.</p>
+                        <p>© <span>2019</span> <a href="contact.php" class="transition">Stephen and Eoin</a> All rights reserved.</p>
                     </div>
                 </div>
             </div>

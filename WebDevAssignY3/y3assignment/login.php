@@ -228,7 +228,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="copyright">
-                        <p>© <span>2018</span> <a href="#" class="transition">Speev nd Own</a> All rights reserved.</p>
+                        <p>© <span>2019</span> <a href="contact.php" class="transition">Stephen and Eoin</a> All rights reserved.</p>
                     </div>
                 </div>
             </div>

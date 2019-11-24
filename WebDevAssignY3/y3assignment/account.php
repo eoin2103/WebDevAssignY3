@@ -15,8 +15,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	}
 }
 error_reporting(0);
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
 
 ?>
 
@@ -92,7 +90,6 @@ error_reporting(0);
 						$stmt = $db->prepare("select profile_pic_path from users where user_id like ?");
 						$stmt->bind_param("s",$_SESSION["id"]);
 						
-						//$sessionName = ;
 						$stmt->execute();
 						
 						$stmt->bind_result($col1);
@@ -101,11 +98,6 @@ error_reporting(0);
 						
 						$stmt->close();
 						
-						//$nav_bar_prof_pic_query = mysqli_query($db,"select profile_pic_path from users where user_id like '".$_SESSION["id"]."'");
-						
-						
-						
-						//$nav_pic_query_row = mysqli_fetch_row($nav_bar_prof_pic_query);
 						
 						if($$col1 === NULL)
 						{
@@ -152,15 +144,7 @@ error_reporting(0);
         </div>
     </nav>
     <div class="container-fluid text-center">
-
         <div class="row content">
-            <!--
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-    </div>
-	-->
             <div class="col-sm-12 text-left">
                 <h1><?php echo $_SESSION[user_name]; ?>'s Account</h1>
                 <?php 
@@ -272,7 +256,7 @@ error_reporting(0);
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="copyright">
-                        <p>© <span>2018</span> <a href="#" class="transition">Speev nd Own</a> All rights reserved.</p>
+                        <p>© <span>2019</span> <a href="contact.php" class="transition">Stephen and Eoin</a> All rights reserved.</p>
                     </div>
                 </div>
             </div>
