@@ -170,7 +170,7 @@ error_reporting(0);
                     <hr>
                     <h4>Come Find Us!</h4>
                     <div class="table-responsive">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2382.3224322870833!2d-6.269866684585018!3d53.33748418307661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48670c208d669855%3A0x617d72d1cfaa1376!2sKevin%20Street%20Library!5e0!3m2!1sen!2sie!4v1574623414797!5m2!1sen!2sie" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2382.3224322870833!2d-6.269866684585018!3d53.33748418307661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48670c208d669855%3A0x617d72d1cfaa1376!2sKevin%20Street%20Library!5e0!3m2!1sen!2sie!4v1574623414797!5m2!1sen!2sie" width="700" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
                     </div>
                     <hr>
                 </div>
