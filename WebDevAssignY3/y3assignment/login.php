@@ -151,6 +151,7 @@
                                 </span>
                             </div>
                         </form>
+                        <span id="login_error"></span>
                     </div>
                     <br>
                     <span>Can't remember password? Click <a href="change_password.php">here</a> to change it.</span><br>
@@ -184,7 +185,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	//check if username exists in db
 	if($stmt->num_rows == 0)
 	{
-		echo "<span class='error'>Username does not exist</span>";
+		 echo '<script>document.getElementById("login_error").innerHTML = "ERROR! Username or password does not match";</script>';
+         echo '<script>document.getElementById("login_error").style.color = "red"</script> ';
 	}
 	else
 	{
@@ -204,7 +206,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		}
 		else
 		{
-			echo "<span class='error'>Password is incorrect.</span>";
+             echo '<script>document.getElementById("login_error").innerHTML = "ERROR! Username or password does not match";</script>';
+             echo '<script>document.getElementById("login_error").style.color = "red"</script> ';
 		}
 	}
 }

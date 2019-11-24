@@ -22,6 +22,8 @@ if (mysqli_connect_errno())
 {
 	echo "failed to connect to database";
 }
+
+error_reporting(0);
 ?>
 
 <body>
@@ -242,6 +244,19 @@ if (mysqli_connect_errno())
                                                 </div>
                                             </fieldset>
                                         </form>
+                                        <span id="reg_error"> </span>
+                                        <?php
+                                        if ($_GET["duplicateid"] == 1)
+                                        {
+                                            echo '<script>document.getElementById("reg_error").innerHTML = "ERROR! User account already Exists";</script>';
+                                            echo '<script>document.getElementById("reg_error").style.color = "red"</script> ';
+                                        }
+                                        if ($_GET["passmismatch"] == 1)
+                                        {
+                                            echo '<script>document.getElementById("reg_error").innerHTML = "ERROR! Passwords do not match";</script>';
+                                            echo '<script>document.getElementById("reg_error").style.color = "red"</script> ';
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>

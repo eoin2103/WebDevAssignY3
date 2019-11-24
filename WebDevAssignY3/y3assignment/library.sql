@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2019 at 03:20 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.1.28
+-- Generation Time: Nov 24, 2019 at 08:02 PM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -154,13 +154,6 @@ CREATE TABLE `contact` (
   `contact_comments` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `contact`
---
-
-INSERT INTO `contact` (`contact_id`, `contact_first_name`, `contact_surname`, `contact_email`, `contact_subject`, `contact_comments`) VALUES
-(1, 'Stephen', 'Healy', 'stephenhealy21@gmail.com', 'Choose a subject...', 't');
-
 -- --------------------------------------------------------
 
 --
@@ -171,18 +164,6 @@ CREATE TABLE `favourites` (
   `book_ISBN` varchar(20) NOT NULL,
   `user_id` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `favourites`
---
-
-INSERT INTO `favourites` (`book_ISBN`, `user_id`) VALUES
-('141439475', 'bigric'),
-('141439602', 'bigric'),
-('316160199', 'bigric'),
-('439064864', 'bigric'),
-('439139600', 'bigric'),
-('545010225', 'bigric');
 
 -- --------------------------------------------------------
 
@@ -220,25 +201,6 @@ CREATE TABLE `users` (
   `security_answer` varchar(100) NOT NULL,
   `profile_pic_path` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`user_name`, `user_id`, `password`, `security_question`, `security_answer`, `profile_pic_path`) VALUES
-('joshua', 'bigjosh', 'joshspw', '', '', NULL),
-('ricardo', 'bigric', '123', 'how big are my muscles?				', 'very', NULL),
-('callam', 'callam', '123', 'What is my favourite colour?				', 'pink', NULL),
-('adrian', 'celestion', '4321', 'What was the name of your primary school?', 'poland', 'pics/biblethump.png'),
-('Shawn', 'HeartBreakKid', '4321', '', '', NULL),
-('kyle', 'heffo99', '4321', 'What city did your parents meet in?', 'Hamilton', NULL),
-('henry', 'king', '4321', 'chungus				', 'yes', NULL),
-('conor', 'mccool', '4321', 'spoons?				', 'always', NULL),
-('ry', 'ry', '$2y$10$JxkEj0c3Vy2NYCFOBncta.qJcVlk27cvskcHQg2EU7Tg0GKPd.HN6', 'what was your first pet\'\'s name?', 'kita', 'pics/archer pete.png'),
-('sam', 'sam', '123', 'what was your first pet\'s name?', 'dog', NULL),
-('eoin', 'spikyhippo', 'a', 'Who was your childhood hero?', 'Stephen', NULL),
-('stephen', 'stevie', '4321', 'what was your first pet', 'chog', NULL),
-('peter', 'strongest_avenger', '4321', 'what was your first pet\'s name?', 'odinson', NULL);
 
 --
 -- Indexes for dumped tables
@@ -284,7 +246,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `questions`

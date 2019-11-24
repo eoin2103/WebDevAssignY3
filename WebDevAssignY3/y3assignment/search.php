@@ -161,6 +161,9 @@ function addtofave()
                 <h1>Search</h1>
                 <form method="post" class="searchform">
                     <input type="text" name="search" />
+                    <button type="submit" class="btn btn-primary btn-md">Search <i class="fa fa-search" aria-hidden="true"></i></button>
+                    <br>
+                    <br>
                     <label for="filter">Filter By:</label>
                     <select id="filter" name="filter">
                         <option value=""></option>
@@ -169,15 +172,15 @@ function addtofave()
                         <option value="book_ISBN">ISBN</option>
                         <option value="year_published">Year of Publication</option>
                     </select>
+                    <br>
                     <label for="sort">Sort By:</label>
                     <select id="sort" name="sort">
                         <option value=""></option>
-                        <option value="book_name">Title</option>
-                        <option value="book_author">Author</option>
-                        <option value="book_ISBN">ISBN</option>
-                        <option value="year_published">Year of Publication</option>
+                        <option value="book_name">Title A to Z</option>
+                        <option value="book_author">Author A to Z</option>
+                        <option value="book_ISBN">ISBN Alphanumerically</option>
+                        <option value="year_published">Year of Publication Old to New</option>
                     </select>
-                    <input type="submit" />
                 </form>
                 <div class="table-responsive">
                     <?php

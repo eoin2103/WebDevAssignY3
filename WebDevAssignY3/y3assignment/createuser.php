@@ -30,7 +30,7 @@ if (mysqli_connect_errno())
 			//check passwords are the same
 			if($_POST['password'] != $_POST['confirm_password'])
 			{
-				echo "<span class='error'>Passwords are not the same</span>";
+				header("location: register.php?passmismatch=1");
 			}
 			else
 			{
@@ -59,7 +59,7 @@ if (mysqli_connect_errno())
 				else 
 				{
 					echo "Error: " . $sql . "<br>" . $db->error;
-                    header("location: login.php");
+                    header("location: register.php?duplicateid=1");
 				}
 			}
 		}
