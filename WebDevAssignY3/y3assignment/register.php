@@ -1,63 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Bootstrap Example</title>
+    <title>Joe's Library</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="icon" type="x-icon/image" href="bookbicon.png">
+    <link rel="stylesheet" href="mystyle.css">
     <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500&lang=en" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <style>
-        body {
-            font-family: 'Google Sans', sans-serif;
-        }
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {
-            height: 450px
-        }
-
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: #f1f1f1;
-            height: 100%;
-        }
-
-        /* Set black background color, white text and some padding */
-        footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-        }
-
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-                padding: 15px;
-            }
-
-            .row.content {
-                height: auto;
-            }
-        }
-         .logo {
-            width: 1.5em;
-        }
-    </style>
+	<script src="libraryjs.js"></script>
 </head>
+<?php
+	//open connection
+$db = mysqli_connect("localhost","root","","library");
 
+if (mysqli_connect_errno())
+{
+	echo "failed to connect to database";
+}
+?>
 <body>
 
-    <nav class="navbar navbar-inverse">
+<script>
+function checkActiveNav(navButtonId,navLinkId)
+{
+	navButton = document.getElementById(navButtonId);
+	navLink = document.getElementById(navLinkId);
+	linkHref = navLink.href.split("/").pop();
+	console.log(linkHref);
+	currentPage = currentPageName();
+	
+	if(currentPage === linkHref)
+	{
+		navButton.classList.add('active');
+		console.log(navButton.id);
+	}
+}
+function currentPageName()
+{
+	var path = window.location.pathname;
+	var page = path.split("/").pop();
+	console.log(page);
+	return( page );
+}//taken from https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
+
+function pageLoaded()
+{
+	checkActiveNav('home_button','home_link');
+	checkActiveNav('search_button','search_link');
+	checkActiveNav('account_button','account_link');
+	checkActiveNav('contact_button','contact_link');
+}
+</script>
+
+
+
+<nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -65,62 +66,164 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php"><img src="bookbicon.png" class="logo"></a>
+                <a class="navbar-brand" href="#"><img src="bookbicon.png" class="logo"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="search.php">Search</a></li>
-                    <li><a href="account.php">My Account</a></li>
-                    <li><a href="contact.php">Contact</a></li>
+                    <li id="home_button"><a id="home_link"href="index.php">Home</a></li>
+                    <li id="search_button"><a id="search_link" href="search.php">Search</a></li>
+                    <li id="account_button"><a id="account_link" href="account.php">My Account <?php 
+					
+					if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true)
+					{
+						//prepare statement
+						$stmt = $db->prepare("select profile_pic_path from users where user_id like ?");
+						$stmt->bind_param("s",$_SESSION["id"]);
+						
+						//$sessionName = ;
+						$stmt->execute();
+						
+						$stmt->bind_result($col1);
+						
+						$stmt->fetch();
+						
+						$stmt->close();
+						
+						//$nav_bar_prof_pic_query = mysqli_query($db,"select profile_pic_path from users where user_id like '".$_SESSION["id"]."'");
+						
+						
+						
+						//$nav_pic_query_row = mysqli_fetch_row($nav_bar_prof_pic_query);
+						
+						if($$col1 === NULL)
+						{
+							$nav_pic = 'pics/default.jpg';
+						}
+						else
+						{
+							$nav_pic = $$col1;
+						}
+						
+						echo "<img src='".$col1."' style='width: 1.5em; border-radius: 25px;'>";
+						
+					}
+					
+					?></a></li>
+                    <li id="contact_button"><a id="contact_link" href="contact.php">Contact</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <?php
+				if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true)
+				{
+					echo '<ul class="nav navbar-nav navbar-right">';
+					echo '<li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
+					echo '</ul>';
+				}
+				else
+				{
+					echo '<ul class="nav navbar-nav navbar-right">';
+					echo '<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>';
+					echo '</ul>';
+					echo '<ul class="nav navbar-nav navbar-right">';
+					echo '<li><a href="register.php"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>';
+					echo '</ul>';
+				}
+				?>
+                <ul class="nav navbar-nav navbar-right ">
+                    <li>
+                        <form method="post" class="navsearch" action="search.php">
+                            <input type="text" name="search" Placeholder="Look up books or authors" />
+                            <input  type="image" value="Search"  style="width:1.5em; vertical-align:middle; " src="pics/search_icon.png" ></button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-
-    <div class="container-fluid text-center">
+<div class="container-fluid text-center">    
+	
+  <div class="row content">
+  <!--
+    <div class="col-sm-2 sidenav">
+      <p><a href="#">Link</a></p>
+      <p><a href="#">Link</a></p>
+      <p><a href="#">Link</a></p>
+    </div>
+	-->
+     <div class="container-fluid text-center">
 
         <div class="row content">
-            <!--
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-    </div>
-	-->
+
             <div class="col-sm-12 text-left">
-                <h1>Register</h1>
-                <form action="" method="post">
-
-                    <label>Name</label>
-                    <br>
-                    <input type="text" name="user_name" class="" value="">
-                    <br>
-                    <label>User ID</label>
-                    <br>
-                    <input type="text" name="user_id" value="">
-                    <br>
-                    <label>Password</label>
-                    <br>
-                    <input type="password" name="password" class="" value="">
-                    <br>
-                    <label>Confirm Password</label>
-                    <br>
-                    <input type="password" name="confirm_password" class="" value="">
-                    <br>
-                    <br>
-                    <input type="submit" class="" value="Submit">
-                    <br>
-                    <br>
-                </form>
-            </div>
-            <!--
+	 
+		  <form action="createuser.php" method="post">
+				<h1>Register</h1>
+                <label>Name</label>
+				<br>
+                <input type="text" name="user_name" class="" value="">
+                <br>
+				<label>User ID</label>
+				<br>
+                <input type="text" name="user_id" value="" onblur="userIdAvailability()" id="user_id">
+				<script>
+					function userIdAvailability()
+					{
+						$("#id-availability").hide();
+						jQuery.ajax({
+							url: "check_userid.php",
+							data: 'userid='+$("#user_id").val(),
+							type: "POST",
+							success:function(data){
+								$("#id-availability").html(data);
+								$("#id-availability").fadeIn(1000);
+							},
+							error:function (){}
+						});
+					}
+				</script>
+				<span id="id-availability"> </span>
+                <br>
+                <label>Password</label>
+				<br>
+                <input type="password" name="password" class="" value="">
+                <br>
+            
+            
+                <label>Confirm <br> Password</label>
+				<br>
+                <input type="password" name="confirm_password" class="" value="">
+                <br>
+				<label>Security <br>Question</label>
+				<br>
+                <select  name="security_question" class="" value="" onchange='checkother(this.value)'>
+				<?php
+				$result = mysqli_query($db, "select question_text from questions");
+				
+				while ($row = mysqli_fetch_row($result))
+				{
+					
+					$optionquestion = $row[0];
+					$optionquestion = str_replace("'","&#39",$optionquestion);
+					echo("<option value='".$optionquestion."'>".$optionquestion."</option>");
+				}
+				?>
+				<option>Other</option>
+				
+				</select>
+				<label id="otherQuestionLabel" style="display:none;" for="otherquestion">Enter your question</label>
+				<textarea id="otherquestion" name="otherquestion" style="display:none;">
+				</textarea>
+                <br>
+				<label>Security <br>Answer</label>
+				<br>
+                <input type="text" name="security_answer" class="" value="">
+                <br>
+            
+                <input type="submit" class="" value="Submit">
+		  </form>
+		  </div>
+		  </div>
+    </div>
+	<!--
     <div class="col-sm-2 sidenav">
       <div class="well">
         <p>ADS</p>
@@ -130,62 +233,18 @@
       </div>
     </div>
 	-->
-        </div>
-    </div>
+  </div>
+</div>
 
-    <footer class="container-fluid text-center">
-        <p>Footer Text</p>
+<footer class="footer">
+        <p>© 2019 Eoin and Stephen, All Rights Reserved. Contact Us:
+            <a href="mailto:c17400202@mytudublin.ie?Subject=Joes-Library" target="_top" style="color: #ffffff">C17400202@mytudublin.ie</a></p>
     </footer>
-    <?php
-	//open connection
-$db = mysqli_connect("localhost","root","","library");
-
-if (mysqli_connect_errno())
-{
-	echo "failed to connect to database";
-} 
+<?php 
 //process data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST")
-	{
-		//check username does not already exist
-		$result = mysqli_query($db, "select user_id from users where user_id = '".$_POST['user_id']."'");
-		if($_POST['user_name']== ""  || $_POST['user_id']== "" || $_POST['password']== "" || $_POST['confirm_password']== "")
-		{
-			echo "<span class='error'>Please fill in all fields</span>";
-		}
-		else
-		{
-			if(mysqli_num_rows($result) == 1)
-			{
-				echo "<span class='error'>This username is already taken.</span>";
-			}
-			else
-			{
-				//check passwords are the same
-				if($_POST['password'] != $_POST['confirm_password'])
-				{
-					echo "<span class='error'>Passwords are not the same</span>";
-				}
-				else
-				{
-					$sql = "INSERT INTO users (user_name,user_id, password) VALUES ('".$_POST['user_name']."','".$_POST['user_id']. "','".$_POST['password']."')";
-					if ($db->query($sql) === TRUE) 
-					{
-						header("location: login.php");
-					} 
-					else 
-					{
-						echo "Error: " . $sql . "<br>" . $db->error;
-					}
-				}
-			}
-		}
-			
-    }
-    
-    // Close connection
-	mysqli_close($db);
+/*
+
+	*/
 ?>
 </body>
-
 </html>

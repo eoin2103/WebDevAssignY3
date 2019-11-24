@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+// Initialize the session
+session_start();
 
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+$db = mysqli_connect("localhost","root","","library");
+if($_SERVER["REQUEST_METHOD"] == "POST")
+{
+	if (mysqli_connect_errno())
+	{
+		echo "failed to connect to database";
+	}
+}
+error_reporting(0);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+
+?>
 <head>
     <title>Joe's Library</title>
     <meta charset="utf-8">
@@ -12,62 +32,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <style>
-        body {
-            font-family: 'Google Sans', sans-serif;
-        }
 
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {
-            height: 450px
-        }
-
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: #f1f1f1;
-            height: 100%;
-        }
-
-        /* Set black background color, white text and some padding */
-        footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-        }
-
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-                padding: 15px;
-            }
-
-            .row.content {
-                height: auto;
-            }
-        }
-
-        .logo {
-            width: 1.5em;
-        }
-
-        .contactContainer {
-            
-        }
-        
-        
-
-    </style>
 </head>
 
-<body>
+<body onload="pageLoaded()">
 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -77,20 +45,75 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php"><img src="bookbicon.png" class="logo"></a>
+                <a class="navbar-brand" href="#"><img src="bookbicon.png" class="logo"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.php">Home</a></li>
-                    <li><a href="search.php">Search</a></li>
-                    <li><a href="account.php">My Account</a></li>
-                    <li><a href="contact.php">Contact</a></li>
+                    <li id="home_button"><a id="home_link"href="index.php">Home</a></li>
+                    <li id="search_button"><a id="search_link" href="search.php">Search</a></li>
+                    <li id="account_button"><a id="account_link" href="account.php">My Account <?php 
+					
+					if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true)
+					{
+						//prepare statement
+						$stmt = $db->prepare("select profile_pic_path from users where user_id like ?");
+						$stmt->bind_param("s",$_SESSION["id"]);
+						
+						//$sessionName = ;
+						$stmt->execute();
+						
+						$stmt->bind_result($col1);
+						
+						$stmt->fetch();
+						
+						$stmt->close();
+						
+						//$nav_bar_prof_pic_query = mysqli_query($db,"select profile_pic_path from users where user_id like '".$_SESSION["id"]."'");
+						
+						
+						
+						//$nav_pic_query_row = mysqli_fetch_row($nav_bar_prof_pic_query);
+						
+						if($$col1 === NULL)
+						{
+							$nav_pic = 'pics/default.jpg';
+						}
+						else
+						{
+							$nav_pic = $$col1;
+						}
+						
+						echo "<img src='".$col1."' style='width: 1.5em; border-radius: 25px;'>";
+						
+					}
+					
+					?></a></li>
+                    <li class="active" id="contact_button"><a id="contact_link" href="contact.php">Contact</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <?php
+				if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true)
+				{
+					echo '<ul class="nav navbar-nav navbar-right">';
+					echo '<li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
+					echo '</ul>';
+				}
+				else
+				{
+					echo '<ul class="nav navbar-nav navbar-right">';
+					echo '<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>';
+					echo '</ul>';
+					echo '<ul class="nav navbar-nav navbar-right">';
+					echo '<li><a href="register.php"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>';
+					echo '</ul>';
+				}
+				?>
+                <ul class="nav navbar-nav navbar-right ">
+                    <li>
+                        <form method="post" class="navsearch" action="search.php">
+                            <input type="text" name="search" Placeholder="Look up books or authors" />
+                            <input  type="image" value="Search"  style="width:1.5em; vertical-align:middle; " src="pics/search_icon.png" ></button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -109,20 +132,20 @@
             <div class="col-sm-12 text-left">
                 <div class="contactContainter">
                     <h1>Contact Us</h1>
-                    <span>* Denotes Required Fields</span>
+                    <span>Please fill in all fields</span>
                     <br>
                     <br>
                     <form action="" method="post">
 
-                        <label for="fname">First Name *</label>
+                        <label for="fname">First Name</label>
                         <br>
-                        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                        <input required type="text" id="firstname" name="firstname" placeholder="Your name..">
                         <br>
                         <label for="lname">Last Name</label>
                         <br>
-                        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                        <input type="text" id="lastname" name="lastname" placeholder="Your last name..">
                         <br>
-                        <label for="email">Email *</label>
+                        <label for="email">Email</label>
                         <br>
                         <input type="email" id="email" name="email" placeholder="Your Email..">
                         <br>
@@ -137,7 +160,7 @@
                         <br>
                         <label for="comments">Comments *</label>
                         <br>
-                        <textarea id="comments" name="comments" placeholder="Write Comments Here.." style="height:100px; width:200px"></textarea>
+                        <textarea required id="comments" name="comments" placeholder="Write Comments Here.." style="height:100px; width:200px"></textarea>
                         <br>
 
                         <input type="submit" value="Submit">
@@ -160,8 +183,9 @@
         </div>
     </div>
 
-    <footer class="container-fluid text-center">
-        <p>Footer Text</p>
+  <footer class="footer">
+        <p>© 2019 Eoin and Stephen, All Rights Reserved. Contact Us:
+            <a href="mailto:c17400202@mytudublin.ie?Subject=Joes-Library" target="_top" style="color: #ffffff">C17400202@mytudublin.ie</a></p>
     </footer>
     <?php
 	//open connection
@@ -174,38 +198,15 @@ if (mysqli_connect_errno())
 //process data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
-		//check username does not already exist
-		$result = mysqli_query($db, "select user_id from users where user_id = '".$_POST['user_id']."'");
-		if($_POST['user_name']== ""  || $_POST['user_id']== "" || $_POST['password']== "" || $_POST['confirm_password']== "")
+		$stmt = $db->prepare("insert into contact (contact_first_name,contact_surname,contact_email,contact_subject,contact_comments) values (?,?,?,?,?)");
+		$stmt->bind_param("sssss",$_POST['firstname'],$_POST['lastname'],$_POST['email'],$_POST['subject'],$_POST['comments']);
+		if($stmt->execute())
 		{
-			echo "<span class='error'>Please fill in all fields</span>";
+			echo "Comment succesfully sent";
 		}
 		else
 		{
-			if(mysqli_num_rows($result) == 1)
-			{
-				echo "<span class='error'>This username is already taken.</span>";
-			}
-			else
-			{
-				//check passwords are the same
-				if($_POST['password'] != $_POST['confirm_password'])
-				{
-					echo "<span class='error'>Passwords are not the same</span>";
-				}
-				else
-				{
-					$sql = "INSERT INTO users (user_name,user_id, password) VALUES ('".$_POST['user_name']."','".$_POST['user_id']. "','".$_POST['password']."')";
-					if ($db->query($sql) === TRUE) 
-					{
-						header("location: login.php");
-					} 
-					else 
-					{
-						echo "Error: " . $sql . "<br>" . $db->error;
-					}
-				}
-			}
+			echo "Your comment could not be sent";
 		}
 			
     }

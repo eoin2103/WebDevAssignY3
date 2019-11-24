@@ -1,53 +1,59 @@
 <!DOCTYPE html>
-<?php session_start(); ?>
 <html lang="en">
 <head>
-    <title>Joe's Library</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link rel="icon" type="x-icon/image" href="bookbicon.png">
-    <link rel="stylesheet" href="mystyle.css">
-    <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500&lang=en" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+ 
 </head>
-<body>
-
-<script>
-function checkActiveNav(navButtonId,navLinkId)
-{
-	navButton = document.getElementById(navButtonId);
-	navLink = document.getElementById(navLinkId);
-	linkHref = navLink.href.split("/").pop();
-	console.log(linkHref);
-	currentPage = currentPageName();
-	
-	if(currentPage === linkHref)
+<?php
+session_start();
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true)
 	{
-		navButton.classList.add('active');
-		console.log(navButton.id);
+		header("location:account.php");
 	}
-}
-function currentPageName()
-{
-	var path = window.location.pathname;
-	var page = path.split("/").pop();
-	console.log(page);
-	return( page );
-}//taken from https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
-
-function pageLoaded()
-{
-	checkActiveNav('home_button','home_link');
-	checkActiveNav('search_button','search_link');
-	checkActiveNav('account_button','account_link');
-	checkActiveNav('contact_button','contact_link');
-}
-</script>
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 
+?>
+<body>
 
 <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -130,6 +136,7 @@ function pageLoaded()
             </div>
         </div>
     </nav>
+
 <div class="container-fluid text-center">    
 	
   <div class="row content">
@@ -140,67 +147,91 @@ function pageLoaded()
       <p><a href="#">Link</a></p>
     </div>
 	-->
+	
     <div class="col-sm-12 text-left"> 
-      <h1>Login</h1>
+      <h1>Password Reset</h1>
+	  <!--
 		  <form action="" method="post">
 				
                 
-				<label>User ID</label>
-				<br>
-                <input type="text" name="user_id" value="">
-                <br>
-                <label>Password</label>
-				<br>
-                <input type="password" name="password" class="" value="">
+				<label>Please enter your User ID</label>
+                <input type="text" name="cpw_user_id" value="">
                 <br>
 				<input type="submit" class="" value="Submit">
 		  </form>
-    
+		-->
 				<?php
 $db = mysqli_connect("localhost","root","","library");
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-	if (mysqli_connect_errno())
+if (mysqli_connect_errno())
 	{
 		echo "failed to connect to database";
 	} 
 
-	//$result = mysqli_query($db, "select user_name, password, user_id from users where user_id like '".$_POST['user_id']."'");
-	$stmt = $db->prepare("select user_name, password, user_id from users where user_id like ?");
-	$stmt->bind_param("s",$_POST['user_id']);
-	$stmt->execute();
-	$stmt->store_result();
-	$cols = array();
-	$stmt->bind_result($cols[0],$cols[1],$cols[2]);
-	
-	
-	//check if username exists in db
-	if($stmt->num_rows == 0)
+
+	if(!isset($_POST["cpw_user_id"]))
 	{
-		echo "<span class='error'>Username does not exist</span>";
+		
+		echo "<form action='' method='post'>";      
+		echo "<label>Please enter your User ID</label>";
+		echo "<input type='text' name='cpw_user_id' />";
+		echo "<br>";
+		echo "<input type='submit' class='' value='Submit'>";
+		echo "</form>";
+		
 	}
 	else
 	{
+		
+		//$result = mysqli_query($db, "select user_name, password, user_id, security_question from users where user_id like '".$_POST['cpw_user_id']."';");
+		$stmt = $db->prepare("select user_name, password, user_id, security_question from users where user_id like ?");
+		$stmt->bind_param("s",$_POST['cpw_user_id']);
+		$stmt->execute();
+		$stmt->store_result();
+		$rows = $stmt->num_rows;
+		//check if username exists in db
+		$stmt->bind_result($col1,$col2,$col3,$col4);
+		
+		echo "<b>Username:".$_POST["cpw_user_id"]."</b><br>";
+		echo "Not your username? click <a href='clearpost.php'>here</a>";
 		$stmt->fetch();
-		//check if password is correct
-		//if($_POST['password'] == password_verify(htmlentities($row[1])))
-		if(password_verify($_POST['password'], $cols[1] ) )
+		//echo $col1.$col2.$col3.$col4;
+		if($rows == 0)
 		{
-			//initialise session
+			echo "<span class='error'>Username does not exist!</span>";
 			
-                            
-			
-			$_SESSION["loggedin"] = true;
-			$_SESSION["id"] = $cols[2];
-			$_SESSION["user_name"] = $cols["0"];
-			echo "<script type='text/javascript'> window.location.href = 'index.php';</script>";
 		}
 		else
 		{
-			echo "<span class='error'>Password is incorrect.</span>";
+			
+			//$row = mysqli_fetch_row($result);
+			echo "<form action='pwreset.php' method='post'>";
+					
+					
+			echo "<label>".$col4."</label><br>";
+			echo "<input type='text' name='cpw_answer' value=''>";
+			echo "<br>";
+			echo "<label>Enter new Password</label><br>";
+			echo "<input type='password' name='newpw'></input><br>";
+			echo "<label>Confirm new Password</label><br>";
+			echo "<input type='password' name='confirmnewpw'></input><br>";
+			echo "<input type='submit' class='' value='Submit'>";
+			echo "<input type='hidden' name='cpw_user_id' value='".$_POST["cpw_user_id"]."'/>";
+			echo "</form>";
 		}
+		
 	}
-}
+	
+	if($_SESSION["wrong_answer"] == 1)
+	{
+		echo "<span>Incorrect Answer</span><br>";
+		$_SESSION["wrong_answer"] = 0;
+	}
+	if($_SESSION["wrong_id"] == 1)
+	{
+		echo "<span>That User ID does not exist</span><br>";
+		$_SESSION["wrong_id"] = 0;
+	}
+
 ?>
     <span>Can't remember password? Click <a href="change_password.php">here</a> to change it.</span><br>
     <span>Don't have an account? Register <a href="register.php">here</a></span>
@@ -220,10 +251,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
   </div>
 </div>
 
-<footer class="footer">
-        <p>© 2019 Eoin and Stephen, All Rights Reserved. Contact Us:
-            <a href="mailto:c17400202@mytudublin.ie?Subject=Joes-Library" target="_top" style="color: #ffffff">C17400202@mytudublin.ie</a></p>
-    </footer>
+<footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
 
 </body>
 </html>
