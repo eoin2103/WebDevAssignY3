@@ -39,6 +39,7 @@ if(isset($_POST["submit"])) {
     } else {
         echo "File is not an image.";
         $uploadValid = 0;
+        header("location: account.php");
     }
 }
 //check if a file with same name exists, if so append a 1
@@ -68,10 +69,12 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 && $imageFileType != "gif" ) {
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadValid = 0;
+    header("location: account.php");
 }
 // Check if $uploadOk is set to 0 by an error
 if ($uploadValid == 0) {
     echo "Sorry, your file was not uploaded.";
+    header("location: account.php");
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["uploadfile"]["tmp_name"], $pic_file)) 
@@ -110,6 +113,7 @@ if ($uploadValid == 0) {
 	else 
 	{
         echo "Sorry, there was an error uploading your file.";
+        header("location: account.php");
     }
 	
 }

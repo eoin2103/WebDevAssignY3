@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php session_start(); ?>
 <html lang="en">
+
 <head>
     <title>Joe's Library</title>
     <meta charset="utf-8">
@@ -13,43 +14,42 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
-<script>
-function checkActiveNav(navButtonId,navLinkId)
-{
-	navButton = document.getElementById(navButtonId);
-	navLink = document.getElementById(navLinkId);
-	linkHref = navLink.href.split("/").pop();
-	console.log(linkHref);
-	currentPage = currentPageName();
-	
-	if(currentPage === linkHref)
-	{
-		navButton.classList.add('active');
-		console.log(navButton.id);
-	}
-}
-function currentPageName()
-{
-	var path = window.location.pathname;
-	var page = path.split("/").pop();
-	console.log(page);
-	return( page );
-}//taken from https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
+    <script>
+        function checkActiveNav(navButtonId, navLinkId) {
+            navButton = document.getElementById(navButtonId);
+            navLink = document.getElementById(navLinkId);
+            linkHref = navLink.href.split("/").pop();
+            console.log(linkHref);
+            currentPage = currentPageName();
 
-function pageLoaded()
-{
-	checkActiveNav('home_button','home_link');
-	checkActiveNav('search_button','search_link');
-	checkActiveNav('account_button','account_link');
-	checkActiveNav('contact_button','contact_link');
-}
-</script>
+            if (currentPage === linkHref) {
+                navButton.classList.add('active');
+                console.log(navButton.id);
+            }
+        }
+
+        function currentPageName() {
+            var path = window.location.pathname;
+            var page = path.split("/").pop();
+            console.log(page);
+            return (page);
+        } //taken from https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
+
+        function pageLoaded() {
+            checkActiveNav('home_button', 'home_link');
+            checkActiveNav('search_button', 'search_link');
+            checkActiveNav('account_button', 'account_link');
+            checkActiveNav('contact_button', 'contact_link');
+        }
+
+    </script>
 
 
 
-<nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -57,11 +57,11 @@ function pageLoaded()
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="bookbicon.png" class="logo"></a>
+                <a class="navbar-brand" href="index.php"><img src="bookbicon.png" class="logo"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li id="home_button"><a id="home_link"href="index.php">Home</a></li>
+                    <li id="home_button"><a id="home_link" href="index.php">Home</a></li>
                     <li id="search_button"><a id="search_link" href="search.php">Search</a></li>
                     <li id="account_button"><a id="account_link" href="account.php">My Account <?php 
 					
@@ -123,40 +123,47 @@ function pageLoaded()
                     <li>
                         <form method="post" class="navsearch" action="search.php">
                             <input type="text" name="search" Placeholder="Look up books or authors" />
-                            <input  type="image" value="Search"  style="width:1.5em; vertical-align:middle; " src="pics/search_icon.png" ></button>
+                            <input type="image" value="Search" style="width:1.5em; vertical-align:middle; " src="pics/search_icon.png">
                         </form>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-<div class="container-fluid text-center">    
-	
-  <div class="row content">
-  <!--
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-    </div>
-	-->
-    <div class="col-sm-12 text-left"> 
-      <h1>Login</h1>
-		  <form action="" method="post">
-				
-                
-				<label>User ID</label>
-				<br>
-                <input type="text" name="user_id" value="">
-                <br>
-                <label>Password</label>
-				<br>
-                <input type="password" name="password" class="" value="">
-                <br>
-				<input type="submit" class="" value="Submit">
-		  </form>
-    
-				<?php
+    <!-- Login Referanced From: https://bootsnipp.com/snippets/k7MqR -->
+    <div class="container-fluid text-center">
+        <br>
+        <br>
+        <br>
+        <div class="row content">
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="form-login">
+                        <h4>Welcome back.</h4>
+                        <form method="post" action="">
+                            <input type="text" id="user_id" name="user_id" class="form-control input-sm chat-input" placeholder="username" />
+                            <br>
+                            <input type="password" id="password" name="password" class="form-control input-sm chat-input" placeholder="password" />
+                            <br>
+                            <div class="wrapper">
+                                <span class="group-btn">
+                                    <button type=submit class="btn btn-primary btn-md">Login <i class="fa fa-sign-in"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <br>
+                    <span>Can't remember password? Click <a href="change_password.php">here</a> to change it.</span><br>
+                    <span>Don't have an account? Register <a href="register.php">here</a></span>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+
+            <?php
 $db = mysqli_connect("localhost","root","","library");
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -193,7 +200,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			$_SESSION["loggedin"] = true;
 			$_SESSION["id"] = $cols[2];
 			$_SESSION["user_name"] = $cols["0"];
-			echo "<script type='text/javascript'> window.location.href = 'index.php';</script>";
+			echo "<script type='text/javascript'> window.location.href = 'account.php';</script>";
 		}
 		else
 		{
@@ -202,28 +209,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	}
 }
 ?>
-    <span>Can't remember password? Click <a href="change_password.php">here</a> to change it.</span><br>
-    <span>Don't have an account? Register <a href="register.php">here</a></span>
-          
-            
-</div>
-	<!--
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
-	-->
-  </div>
-</div>
 
-<footer class="footer">
-        <p>© 2019 Eoin and Stephen, All Rights Reserved. Contact Us:
-            <a href="mailto:c17400202@mytudublin.ie?Subject=Joes-Library" target="_top" style="color: #ffffff">C17400202@mytudublin.ie</a></p>
-    </footer>
+
+
+        </div>
+
+    </div>
+
+    <div class="bottom section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="copyright">
+                        <p>© <span>2018</span> <a href="#" class="transition">Speev nd Own</a> All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>

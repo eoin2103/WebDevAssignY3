@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-     <title>Joe's Library</title>
+    <title>Joe's Library</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -30,43 +31,42 @@ function addtofave()
 }
 	
 ?>
+
 <body>
 
-<script>
-function checkActiveNav(navButtonId,navLinkId)
-{
-	navButton = document.getElementById(navButtonId);
-	navLink = document.getElementById(navLinkId);
-	linkHref = navLink.href.split("/").pop();
-	console.log(linkHref);
-	currentPage = currentPageName();
-	
-	if(currentPage === linkHref)
-	{
-		navButton.classList.add('active');
-		console.log(navButton.id);
-	}
-}
-function currentPageName()
-{
-	var path = window.location.pathname;
-	var page = path.split("/").pop();
-	console.log(page);
-	return( page );
-}//taken from https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
+    <script>
+        function checkActiveNav(navButtonId, navLinkId) {
+            navButton = document.getElementById(navButtonId);
+            navLink = document.getElementById(navLinkId);
+            linkHref = navLink.href.split("/").pop();
+            console.log(linkHref);
+            currentPage = currentPageName();
 
-function pageLoaded()
-{
-	checkActiveNav('home_button','home_link');
-	checkActiveNav('search_button','search_link');
-	checkActiveNav('account_button','account_link');
-	checkActiveNav('contact_button','contact_link');
-}
-</script>
+            if (currentPage === linkHref) {
+                navButton.classList.add('active');
+                console.log(navButton.id);
+            }
+        }
+
+        function currentPageName() {
+            var path = window.location.pathname;
+            var page = path.split("/").pop();
+            console.log(page);
+            return (page);
+        } //taken from https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
+
+        function pageLoaded() {
+            checkActiveNav('home_button', 'home_link');
+            checkActiveNav('search_button', 'search_link');
+            checkActiveNav('account_button', 'account_link');
+            checkActiveNav('contact_button', 'contact_link');
+        }
+
+    </script>
 
 
 
-<nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -74,11 +74,11 @@ function pageLoaded()
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="bookbicon.png" class="logo"></a>
+                <a class="navbar-brand" href="index.php"><img src="bookbicon.png" class="logo"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li id="home_button"><a id="home_link"href="index.php">Home</a></li>
+                    <li id="home_button"><a id="home_link" href="index.php">Home</a></li>
                     <li class="active" id="search_button"><a id="search_link" href="search.php">Search</a></li>
                     <li id="account_button"><a id="account_link" href="account.php">My Account <?php 
 					
@@ -140,48 +140,48 @@ function pageLoaded()
                     <li>
                         <form method="post" class="navsearch" action="search.php">
                             <input type="text" name="search" Placeholder="Look up books or authors" />
-                            <input  type="image" value="Search"  style="width:1.5em; vertical-align:middle; " src="pics/search_icon.png" ></button>
+                            <input type="image" value="Search" style="width:1.5em; vertical-align:middle; " src="pics/search_icon.png">
                         </form>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-<div class="container-fluid text-center">    
-	
-  <div class="row content">
-  <!--
+    <div class="container-fluid text-center">
+
+        <div class="row content">
+            <!--
     <div class="col-sm-2 sidenav">
       <p><a href="#">Link</a></p>
       <p><a href="#">Link</a></p>
       <p><a href="#">Link</a></p>
     </div>
 	-->
-    <div class="col-sm-10 text-left"> 
-		<h1>Search</h1>
-		<form method="post" class="searchform">
-			<input type="text" name="search" />
-			<label for="filter">Filter By:</label>
-			<select id="filter" name="filter">
-				<option value=""></option>
-				<option value="book_name">Title</option>
-				<option value="book_author">Author</option>
-				<option value="book_ISBN">ISBN</option>
-				<option value="year_published">Year of Publication</option>
-			</select>
-			<label for="sort">Sort By:</label>
-			<select id="sort" name="sort">
-				<option value=""></option>
-				<option value="book_name">Title</option>
-				<option value="book_author">Author</option>
-				<option value="book_ISBN">ISBN</option>
-				<option value="year_published">Year of Publication</option>
-			</select>
-			<input type="submit"/>
-		</form>
-		<div class="table-responsive">
-		<?php
-		echo '<table class="searchtable" >';
+            <div class="col-sm-12 text-left">
+                <h1>Search</h1>
+                <form method="post" class="searchform">
+                    <input type="text" name="search" />
+                    <label for="filter">Filter By:</label>
+                    <select id="filter" name="filter">
+                        <option value=""></option>
+                        <option value="book_name">Title</option>
+                        <option value="book_author">Author</option>
+                        <option value="book_ISBN">ISBN</option>
+                        <option value="year_published">Year of Publication</option>
+                    </select>
+                    <label for="sort">Sort By:</label>
+                    <select id="sort" name="sort">
+                        <option value=""></option>
+                        <option value="book_name">Title</option>
+                        <option value="book_author">Author</option>
+                        <option value="book_ISBN">ISBN</option>
+                        <option value="year_published">Year of Publication</option>
+                    </select>
+                    <input type="submit" />
+                </form>
+                <div class="table-responsive">
+                    <?php
+		echo '<table class="searchtable" id="sresults" >';
 		echo '<thead>';
 		echo '<tr><td>Book Name</td><td>Author</td><td>ISBN</td><td>Year of Publication</td><td>availability</td></tr>';
 		echo '</thead>';
@@ -270,40 +270,50 @@ function pageLoaded()
 		
 		
 		?>
-		</div>
-    </div>
-	<script>
-	function addToFaves($tcontents)
-	{
-		jQuery.ajax({
-			url: "addfave.php",
-			data: "ISBN=" +$tcontents,
-			type: "POST",
-			success:function()
-			{
-				alert('Added to favourites');
-			},
-			error:function(){}	
-		});
-	}
-	
-	</script>
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
+                </div>
+            </div>
+            <script>
+                function addToFaves($tcontents) {
+                    jQuery.ajax({
+                        url: "addfave.php",
+                        data: "ISBN=" + $tcontents,
+                        type: "POST",
+                        success: function() {
+                            alert('Added to favourites');
+                        },
+                        error: function() {}
+                    });
+                }
 
-  </div>
-</div>
-
-<footer class="footer">
-        <p>© 2019 Eoin and Stephen, All Rights Reserved. Contact Us:
-            <a href="mailto:c17400202@mytudublin.ie?Subject=Joes-Library" target="_top" style="color: #ffffff">C17400202@mytudublin.ie</a></p>
-    </footer>
+            </script>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="bottom section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="copyright">
+                        <p>© <span>2018</span> <a href="#" class="transition">Speev nd Own</a> All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>

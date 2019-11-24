@@ -4,10 +4,6 @@
 // Initialize the session
 session_start();
 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-}
 $db = mysqli_connect("localhost","root","","library");
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -21,6 +17,7 @@ error_reporting(0);
 //ini_set('display_errors', 1);
 
 ?>
+
 <head>
     <title>Joe's Library</title>
     <meta charset="utf-8">
@@ -45,11 +42,11 @@ error_reporting(0);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="bookbicon.png" class="logo"></a>
+                <a class="navbar-brand" href="index.php"><img src="bookbicon.png" class="logo"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li id="home_button"><a id="home_link"href="index.php">Home</a></li>
+                    <li id="home_button"><a id="home_link" href="index.php">Home</a></li>
                     <li id="search_button"><a id="search_link" href="search.php">Search</a></li>
                     <li id="account_button"><a id="account_link" href="account.php">My Account <?php 
 					
@@ -111,66 +108,79 @@ error_reporting(0);
                     <li>
                         <form method="post" class="navsearch" action="search.php">
                             <input type="text" name="search" Placeholder="Look up books or authors" />
-                            <input  type="image" value="Search"  style="width:1.5em; vertical-align:middle; " src="pics/search_icon.png" ></button>
+                            <input type="image" value="Search" style="width:1.5em; vertical-align:middle; " src="pics/search_icon.png">
                         </form>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
+    <!-- Contact us form referenced from: https://bootsnipp.com/snippets/83Br -->
     <div class="container-fluid text-center">
+        <br>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="well well-sm">
+                        <form class="form-horizontal" action="" method="post">
+                            <fieldset>
+                                <legend class="text-center">Contact us</legend>
 
-        <div class="row content">
-            <!--
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-    </div>
-	-->
-            <div class="col-sm-12 text-left">
-                <div class="contactContainter">
-                    <h1>Contact Us</h1>
-                    <span>Please fill in all fields</span>
-                    <br>
-                    <br>
-                    <form action="" method="post">
+                                <!-- Name input-->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="firstname">First Name</label>
+                                    <div class="col-md-9">
+                                        <input id="firstname" name="firstname" type="text" placeholder="Your first name" class="form-control" required>
+                                    </div>
+                                </div>
 
-                        <label for="fname">First Name</label>
-                        <br>
-                        <input required type="text" id="firstname" name="firstname" placeholder="Your name..">
-                        <br>
-                        <label for="lname">Last Name</label>
-                        <br>
-                        <input type="text" id="lastname" name="lastname" placeholder="Your last name..">
-                        <br>
-                        <label for="email">Email</label>
-                        <br>
-                        <input type="email" id="email" name="email" placeholder="Your Email..">
-                        <br>
-                        <label for="subject">Subject</label>
-                        <br>
-                        <select id="subject" name="subject">
-                            <option selected="selected">Choose a subject...</option>
-                            <option value="Book Request">Book Request</option>
-                            <option value="Technical Error">Technical Error</option>
-                            <option value="Other">Other</option>
-                        </select>
-                        <br>
-                        <label for="comments">Comments *</label>
-                        <br>
-                        <textarea required id="comments" name="comments" placeholder="Write Comments Here.." style="height:100px; width:200px"></textarea>
-                        <br>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="lastname">Last Name</label>
+                                    <div class="col-md-9">
+                                        <input id="lastname" name="lastname" type="text" placeholder="Your last name" class="form-control" required>
+                                    </div>
+                                </div>
 
-                        <input type="submit" value="Submit">
-                        <br>
-                        <br>
+                                <!-- Email input-->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="email">Your E-mail</label>
+                                    <div class="col-md-9">
+                                        <input id="email" name="email" type="email" placeholder="Your email" class="form-control" required>
+                                    </div>
+                                </div>
 
-                    </form>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="subject">Subject</label>
+                                    <div class="col-md-9">
+                                        <input id="subject" name="subject" type="text" placeholder="Subject of inquiry" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <!-- Message body -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="comments">Your Comments</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" id="comments" name="comments" placeholder="Please enter your message here..." rows="5" required></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Form actions -->
+                                <div class="form-group">
+                                    <div class="col-md-12 text-right">
+                                        <button type="submit" class="btn btn-primary btn-lg" id="subbut">Submit</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <span id="userprompt"></span>
+                    </div>
                 </div>
             </div>
-            <!--
+        </div>
+        <br>
+        <br>
+        <!--
     <div class="col-sm-2 sidenav">
       <div class="well">
         <p>ADS</p>
@@ -180,13 +190,21 @@ error_reporting(0);
       </div>
     </div>
 	-->
+    </div>
+
+
+    <div class="bottom section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="copyright">
+                        <p>© <span>2018</span> <a href="#" class="transition">Speev nd Own</a> All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-  <footer class="footer">
-        <p>© 2019 Eoin and Stephen, All Rights Reserved. Contact Us:
-            <a href="mailto:c17400202@mytudublin.ie?Subject=Joes-Library" target="_top" style="color: #ffffff">C17400202@mytudublin.ie</a></p>
-    </footer>
     <?php
 	//open connection
 $db = mysqli_connect("localhost","root","","library");
@@ -202,11 +220,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		$stmt->bind_param("sssss",$_POST['firstname'],$_POST['lastname'],$_POST['email'],$_POST['subject'],$_POST['comments']);
 		if($stmt->execute())
 		{
-			echo "Comment succesfully sent";
+			echo '<script>document.getElementById("userprompt").innerHTML = "Comment Succesfully sent";</script>';
+            echo '<script>document.getElementById("userprompt").style.color = "green"</script> ';
 		}
 		else
 		{
-			echo "Your comment could not be sent";
+			echo '<script>document.getElementById("userprompt").innerHTML = "Your Comment could not be sent.";</script>';
+            echo '<script>document.getElementById("userprompt").style.color = "red"</script> ';
 		}
 			
     }

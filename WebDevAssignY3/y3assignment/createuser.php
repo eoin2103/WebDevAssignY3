@@ -59,6 +59,7 @@ if (mysqli_connect_errno())
 				else 
 				{
 					echo "Error: " . $sql . "<br>" . $db->error;
+                    header("location: login.php");
 				}
 			}
 		}

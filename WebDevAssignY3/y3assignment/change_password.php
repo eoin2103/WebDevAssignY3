@@ -1,61 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;} 
-    }
-  </style>
- 
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="mystyle.css">
+
 </head>
 <?php
+
 session_start();
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true)
 	{
 		header("location:account.php");
 	}
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+error_reporting(0);
 
 
 ?>
+
 <body>
 
-<nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -63,11 +35,11 @@ ini_set('display_errors', 1);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="bookbicon.png" class="logo"></a>
+                <a class="navbar-brand" href="index.php"><img src="bookbicon.png" class="logo"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li id="home_button"><a id="home_link"href="index.php">Home</a></li>
+                    <li id="home_button"><a id="home_link" href="index.php">Home</a></li>
                     <li id="search_button"><a id="search_link" href="search.php">Search</a></li>
                     <li id="account_button"><a id="account_link" href="account.php">My Account <?php 
 					
@@ -129,7 +101,7 @@ ini_set('display_errors', 1);
                     <li>
                         <form method="post" class="navsearch" action="search.php">
                             <input type="text" name="search" Placeholder="Look up books or authors" />
-                            <input  type="image" value="Search"  style="width:1.5em; vertical-align:middle; " src="pics/search_icon.png" ></button>
+                            <input type="image" value="Search" style="width:1.5em; vertical-align:middle; " src="pics/search_icon.png">
                         </form>
                     </li>
                 </ul>
@@ -137,20 +109,20 @@ ini_set('display_errors', 1);
         </div>
     </nav>
 
-<div class="container-fluid text-center">    
-	
-  <div class="row content">
-  <!--
+    <div class="container-fluid text-center">
+
+        <div class="row content">
+            <!--
     <div class="col-sm-2 sidenav">
       <p><a href="#">Link</a></p>
       <p><a href="#">Link</a></p>
       <p><a href="#">Link</a></p>
     </div>
 	-->
-	
-    <div class="col-sm-12 text-left"> 
-      <h1>Password Reset</h1>
-	  <!--
+
+            <div class="col-sm-12 text-left">
+                <h1>Password Reset</h1>
+                <!--
 		  <form action="" method="post">
 				
                 
@@ -160,7 +132,7 @@ ini_set('display_errors', 1);
 				<input type="submit" class="" value="Submit">
 		  </form>
 		-->
-				<?php
+                <?php
 $db = mysqli_connect("localhost","root","","library");
 if (mysqli_connect_errno())
 	{
@@ -173,9 +145,9 @@ if (mysqli_connect_errno())
 		
 		echo "<form action='' method='post'>";      
 		echo "<label>Please enter your User ID</label>";
-		echo "<input type='text' name='cpw_user_id' />";
+		echo "<input type='text' name='cpw_user_id' class='form-control' style='width:30%';' />";
 		echo "<br>";
-		echo "<input type='submit' class='' value='Submit'>";
+		echo '<input type="submit" class="btn btn-primary btn-md" value="Submit">';
 		echo "</form>";
 		
 	}
@@ -208,13 +180,13 @@ if (mysqli_connect_errno())
 					
 					
 			echo "<label>".$col4."</label><br>";
-			echo "<input type='text' name='cpw_answer' value=''>";
+			echo "<input type='text' name='cpw_answer' value=''class='form-control' style='width:30%';' >";
 			echo "<br>";
 			echo "<label>Enter new Password</label><br>";
-			echo "<input type='password' name='newpw'></input><br>";
+			echo "<input type='password' name='newpw' class='form-control' style='width:30%';' ></input><br>";
 			echo "<label>Confirm new Password</label><br>";
-			echo "<input type='password' name='confirmnewpw'></input><br>";
-			echo "<input type='submit' class='' value='Submit'>";
+			echo "<input type='password' name='confirmnewpw' class='form-control' style='width:30%';' ></input><br>";
+			echo "<input type='submit' class='btn btn-primary btn-md' value='Submit'>";
 			echo "<input type='hidden' name='cpw_user_id' value='".$_POST["cpw_user_id"]."'/>";
 			echo "</form>";
 		}
@@ -233,12 +205,21 @@ if (mysqli_connect_errno())
 	}
 
 ?>
-    <span>Can't remember password? Click <a href="change_password.php">here</a> to change it.</span><br>
-    <span>Don't have an account? Register <a href="register.php">here</a></span>
-          
-            
-</div>
-	<!--
+                <br>
+                <span>Don't have an account? Register <a href="register.php">here</a></span>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+            <!--
     <div class="col-sm-2 sidenav">
       <div class="well">
         <p>ADS</p>
@@ -248,12 +229,21 @@ if (mysqli_connect_errno())
       </div>
     </div>
 	-->
-  </div>
-</div>
+        </div>
+    </div>
 
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
+    <div class="bottom section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="copyright">
+                        <p>© <span>2018</span> <a href="#" class="transition">Speev nd Own</a> All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>
